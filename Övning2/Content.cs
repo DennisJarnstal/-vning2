@@ -64,9 +64,8 @@ namespace Övning2
         {
             bool isNumber = int.TryParse(choiceSubMenu, out _);
 
-            while (isNumber == false) { Console.WriteLine("Felaktig input, försök igen!"); subMenuChoices(); case1(); }
-
-            result = Convert.ToInt32(choiceSubMenu);
+            if (isNumber == false) { Console.WriteLine("Felaktig input, försök igen!"); subMenuChoices(); case1(); }
+            else { result = Convert.ToInt32(choiceSubMenu); }
 
             if (result < 5 || result > 100) { Console.WriteLine($"Gratis inträde"); }
             else if (result < 20) { Console.WriteLine($"Ungdomspris: {youthPrice}kr"); }
@@ -75,39 +74,44 @@ namespace Övning2
 
             Console.WriteLine("\nVänligen gå till kassan för att betala, klicka Enter för att komma åter till Huvudmenyn!");
             Console.ReadLine();
+            Console.Clear();
         }
         //CASE 2
         public void case2()
         {
             bool isNumber = int.TryParse(choiceSubMenu, out _);
-
-            while (isNumber == false) { Console.WriteLine("Felaktig input, försök igen!"); subMenuChoices(); case2(); }
-
-            int numberOfPeople = Convert.ToInt32(choiceSubMenu);
             int writeAge = 0;
             int totalPrice = 0;
-            int currentPerson = 0;
+            int currentPerson = 1;
+
+            if (isNumber == false) { Console.WriteLine("Felaktig input, försök igen!"); subMenuChoices(); case2(); }
+            else { 
+            int numberOfPeople = Convert.ToInt32(choiceSubMenu);
 
 
-            while (currentPerson < numberOfPeople)
-            {
-                currentPerson++;
-                Console.WriteLine($"Nuvarande pris: {totalPrice}kr");
-                Console.WriteLine($"Vänligen skriv in ålder på {currentPerson} av {numberOfPeople}");
 
-                string intTextTrue = Console.ReadLine();
-                bool isNumberSecondInput = int.TryParse(intTextTrue, out _);
+                while (currentPerson < numberOfPeople)
+                {
+                    
+                    Console.WriteLine($"Nuvarande pris: {totalPrice}kr");
+                    Console.WriteLine($"Vänligen skriv in ålder på {currentPerson} av {numberOfPeople}");
 
-                while (isNumberSecondInput == false) { Console.WriteLine("Felaktig input, försök igen!"); intTextTrue = Console.ReadLine(); isNumberSecondInput = int.TryParse(intTextTrue, out _); }
+                    string intTextTrue = Console.ReadLine();
+                    bool isNumberSecondInput = int.TryParse(intTextTrue, out _);
 
-                writeAge = Convert.ToInt32(intTextTrue);
+                    while (isNumberSecondInput == false) { Console.WriteLine("Felaktig input, försök igen!"); intTextTrue = Console.ReadLine(); isNumberSecondInput = int.TryParse(intTextTrue, out _); }
 
-                if (writeAge < 5 || writeAge > 100) { totalPrice = totalPrice + 0; }
-                else if (writeAge < 20) { totalPrice = totalPrice + youthPrice; }
-                else if (writeAge > 64) { totalPrice= totalPrice + seniorPrice; }
-                else { totalPrice = totalPrice + generalPrice; }
+                    writeAge = Convert.ToInt32(intTextTrue);
+
+                    if (writeAge < 5 || writeAge > 100) { totalPrice = totalPrice + 0; currentPerson++; }
+                    else if (writeAge < 20) { totalPrice = totalPrice + youthPrice; currentPerson++; }
+                    else if (writeAge > 64) { totalPrice = totalPrice + seniorPrice; currentPerson++; }
+                    else { totalPrice = totalPrice + generalPrice; currentPerson++; }
+                }
             }
             Console.WriteLine($"Tack för din bokning, totalt pris blir {totalPrice}kr, vänligen betala i kassan.\n\nTryck Enter för att återgå till huvudmenyn!");
+            Console.ReadLine();
+            Console.Clear();
         }
         //CASE 3
         public void case3()
@@ -116,6 +120,7 @@ namespace Övning2
             { Console.Write($"{textInput}. {choiceSubMenu}, "); }
             Console.WriteLine("\n\nHär är det du skrev 10 gånger, klicka Enter för att återgå till huvudmeny");
             Console.ReadLine();
+            Console.Clear();
         }
         //CASE 4
         public void case4()
@@ -134,6 +139,7 @@ namespace Övning2
                 Console.WriteLine("Här är det 3:e ordet i meningen du skrev. Klicka Enter för att återgå till huvudmenyn!");
                 Console.WriteLine(wordsInText[2]);
                 Console.ReadLine();
+                Console.Clear();
             }
         }
     }
